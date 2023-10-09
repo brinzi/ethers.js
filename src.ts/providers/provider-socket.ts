@@ -142,7 +142,7 @@ export class SocketPendingSubscriber extends SocketSubscriber {
      *  @_ignore:
      */
     constructor(provider: SocketProvider) {
-        super(provider, [ "newPendingTransactions" ]);
+        super(provider, [ "newPendingTransactions", true ]);
     }
 
     async _emit(provider: SocketProvider, message: any): Promise<void> {

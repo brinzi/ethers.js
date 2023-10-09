@@ -114,7 +114,7 @@ export class SocketPendingSubscriber extends SocketSubscriber {
      *  @_ignore:
      */
     constructor(provider) {
-        super(provider, ["newPendingTransactions"]);
+        super(provider, ["newPendingTransactions", true]);
     }
     async _emit(provider, message) {
         provider.emit("pending", message);
