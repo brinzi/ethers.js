@@ -64,5 +64,5 @@
   "sideEffects": false,
   "tarballHash": "0xaba62af0c17e7de2f56882958bf3b8e6b56e2a62bd0568e1271dc9bcd9ec63c4",
   "types": "./lib/index.d.ts",
-  "version": "5.6.1"
+  "version": "5.6.99"
 }
