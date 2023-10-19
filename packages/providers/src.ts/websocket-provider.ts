@@ -104,9 +104,21 @@ export class WebSocketProvider extends JsonRpcProvider {
             });
         };
 
+        let currentMsg = '';
         this.websocket.onmessage = (messageEvent: { data: string }) => {
             const data = messageEvent.data;
-            const result = JSON.parse(data);
+
+            currentMsg += messageEvent.data;
+            let result;
+            try {
+                result = JSON.parse(currentMsg);
+                currentMsg = ''
+            } catch (error) {
+                console.error(error);
+                console.log(currentMsg);
+                return;
+            }
+
             if (result.id != null) {
                 const id = String(result.id);
                 const request = this._requests[id];

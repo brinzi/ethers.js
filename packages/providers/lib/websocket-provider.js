@@ -111,9 +111,20 @@ var WebSocketProvider = /** @class */ (function (_super) {
                 _this.websocket.send(_this._requests[id].payload);
             });
         };
+        var currentMsg = '';
         _this.websocket.onmessage = function (messageEvent) {
             var data = messageEvent.data;
-            var result = JSON.parse(data);
+            currentMsg += messageEvent.data;
+            var result;
+            try {
+                result = JSON.parse(currentMsg);
+                currentMsg = '';
+            }
+            catch (error) {
+                console.error(error);
+                console.log(currentMsg);
+                return;
+            }
             if (result.id != null) {
                 var id = String(result.id);
                 var request = _this._requests[id];

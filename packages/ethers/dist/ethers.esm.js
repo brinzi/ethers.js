@@ -21264,9 +21264,20 @@ class WebSocketProvider extends JsonRpcProvider {
                 this.websocket.send(this._requests[id].payload);
             });
         };
+        let currentMsg = '';
         this.websocket.onmessage = (messageEvent) => {
             const data = messageEvent.data;
-            const result = JSON.parse(data);
+            currentMsg += messageEvent.data;
+            let result;
+            try {
+                result = JSON.parse(currentMsg);
+                currentMsg = '';
+            }
+            catch (error) {
+                console.error(error);
+                console.log(currentMsg);
+                return;
+            }
             if (result.id != null) {
                 const id = String(result.id);
                 const request = this._requests[id];
